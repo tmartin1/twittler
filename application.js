@@ -3,14 +3,14 @@ $(document).ready(function() {
 });
 
 // Automatically refresh tweets every second.
-
+/*
 window.setInterval(function() {
   refreshTweets();
-}, 1000);
+}, 1000);*/
 
 function refreshTweets() {
-  var $tweetDisplay = $('#tweetDisplay');
-  $tweetDisplay.html('');
+  var $tweets = $('#tweets');
+  $tweets.html('');
 
   var index = streams.home.length - 1;
   display = 10;
@@ -32,7 +32,7 @@ function refreshTweets() {
     $message.text(' ' + tweet.message);
     $message.appendTo($tweet);
 
-    $tweet.appendTo($tweetDisplay);
+    $tweet.appendTo($tweets);
     display--;
     count++;
   }

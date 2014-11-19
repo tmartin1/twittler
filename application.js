@@ -2,11 +2,11 @@ $(document).ready(function() {
   refreshTweets();
 });
 
-// Automatically refresh tweets every second.
+// Automatically refresh tweets five seconds.
 /*
 window.setInterval(function() {
   refreshTweets();
-}, 1000);*/
+}, 5000);*/
 
 function refreshTweets() {
   var $tweets = $('#tweets');
@@ -17,11 +17,11 @@ function refreshTweets() {
   count = 0;
   while(display >= 0) {
     var tweet = streams.home[index-count];
-
     var $tweet = $("<div class='tweet'></div>");
 
-    var $username = $("<a class='username' href='#'></a>");
-    $username.text('@' + tweet.user);
+    var user = tweet.user + '';
+    var $username = $("<a class='username' href='#' onclick=\"userHistory(\'"+user+"\')\"'></a>");
+    $username.text('@' + user);
     $username.appendTo($tweet);
     
     var $timestamp = $("<span class='timestamp'></span>");
@@ -37,6 +37,21 @@ function refreshTweets() {
     count++;
   }
 };
+
+function userHistory(name) {
+  $("#tweets").hide();
+  $("#userTweets").show();
+  $("#viewTitle").text("@"+name+" Twittler History");
+
+
+  
+};
+
+function showCurrent() {
+  $("#userTweets").hide();
+  $("#tweets").show();
+  $("#viewTitle").text("What's Twittling Now");
+}
 
 function formatDate(dateIn) {
   var result = "";

@@ -1,7 +1,11 @@
 $(document).ready(function() {
   refreshTweets();
-
 });
+
+// Automatically refresh tweets every second.
+window.setInterval(function() {
+  refreshTweets();
+}, 1000);
 
 function refreshTweets() {
   var $tweetDisplay = $('#tweetDisplay');

@@ -24,8 +24,7 @@ function formatDate(dateIn) {
   var result = "";
   dateIn += "";
   var dateArr = dateIn.split(' ');
-  console.log(dateArr);
-  result = monAsNumber(dateArr[1])+"/"+dateArr[2]+"/"+dateArr[3]+" at "+dateArr[4];
+  result = monAsNumber(dateArr[1])+"/"+dateArr[2]+"/"+dateArr[3]+" at "+stdTime(dateArr[4]);
   return result;
 }
 
@@ -45,4 +44,16 @@ function monAsNumber(mon) {
     "Dec": 12
   };
   return months[mon];
+}
+
+function stdTime(time) {
+  var result = "";
+  var ampm = "am";
+  var timeArr = time.split(":");
+  if (timeArr[0] > 11) {
+    ampm = "pm";
+    if (timeArr[0] > 12) timeArr[0] -= 12;
+  }
+  result += timeArr[0]+":"+timeArr[1]+ampm;
+  return result;
 }

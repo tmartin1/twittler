@@ -8,11 +8,14 @@ function refreshTweets() {
   $tweetDisplay.html('');
 
   var index = streams.home.length - 1;
-  while(index >= 0) {
-    var tweet = streams.home[index];
+  display = 11;
+  count = 0;
+  while(display >= 0) {
+    var tweet = streams.home[index-count];
     var $tweet = $('<div></div>');
     $tweet.text('@' + tweet.user + ': ' + tweet.message);
     $tweet.appendTo($tweetDisplay);
-    index -= 1;
+    display--;
+    count++;
   }
 };

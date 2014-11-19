@@ -3,6 +3,7 @@ $(document).ready(function() {
 });
 
 // Automatically refresh tweets every second.
+
 window.setInterval(function() {
   refreshTweets();
 }, 1000);
@@ -12,12 +13,25 @@ function refreshTweets() {
   $tweetDisplay.html('');
 
   var index = streams.home.length - 1;
-  display = 11;
+  display = 10;
   count = 0;
   while(display >= 0) {
     var tweet = streams.home[index-count];
-    var $tweet = $('<div></div>');
-    $tweet.text('@' + tweet.user + ': ' + tweet.message + ' (' + formatDate(tweet.created_at) + ')');
+
+    var $tweet = $("<div class='tweet'></div>");
+
+    var $username = $("<a class='username' href='#'></a>");
+    $username.text('@' + tweet.user);
+    $username.appendTo($tweet);
+    
+    var $timestamp = $("<span class='timestamp'></span>");
+    $timestamp.text(' ' + formatDate(tweet.created_at));
+    $timestamp.appendTo($tweet);
+
+    var $message = $("<br><span class='message'></span>");
+    $message.text(' ' + tweet.message);
+    $message.appendTo($tweet);
+
     $tweet.appendTo($tweetDisplay);
     display--;
     count++;
@@ -30,7 +44,7 @@ function formatDate(dateIn) {
   var dateArr = dateIn.split(' ');
   result = monAsNumber(dateArr[1])+"/"+dateArr[2]+"/"+dateArr[3]+" at "+stdTime(dateArr[4]);
   return result;
-}
+};
 
 function monAsNumber(mon) {
   var months = {
@@ -48,7 +62,7 @@ function monAsNumber(mon) {
     "Dec": 12
   };
   return months[mon];
-}
+};
 
 function stdTime(time) {
   var result = "";
@@ -60,4 +74,4 @@ function stdTime(time) {
   }
   result += timeArr[0]+":"+timeArr[1]+ampm;
   return result;
-}
+};

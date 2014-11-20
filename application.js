@@ -54,7 +54,7 @@ function showHistory(name) {
   $userTweets.html('');
   var tweetArr = streams.users[name];
 
-  for (var i=tweetArr.length-1; i>0; i--) {
+  for (var i=tweetArr.length-1; i>=0; i--) {
     var tweet = tweetArr[i];
     var $tweet = displayTweet(name, tweet.message, tweet.created_at);
     $tweet.appendTo($userTweets);
@@ -90,10 +90,12 @@ function showCurrent() {
 // Processes a user submitted tweet by adding it to the global streams object.
 // If the user is not logged in, this will promp them to login as well.
 function submitTweet() {
+  var message = $("#newTweet").val();
+  if (message === '') return;
   signIn();
   var tweet = {
     "user": currentUser,
-    "message": $("#newTweet").val(),
+    "message": message,
     "created_at": new Date()
   };
   streams.users[currentUser].push(tweet);
@@ -117,7 +119,7 @@ function signIn() {
       currentUser = undefined;
       return;
     }
-    streams.users[currentUser] = [];
+    if (!streams.users[currentUser]) streams.users[currentUser] = [];
     $("#userTitle").html('');
     var $userTitle = $('#userTitle');
     var $nameTitle = $("<a class='username' href='#' onclick=\"showHistory(\'"+currentUser+"\')\"'></a>");

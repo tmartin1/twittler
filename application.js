@@ -1,4 +1,4 @@
-var currentUser = null;
+var currentUser = undefined;
 
 $(document).ready(function() {
   refreshTweets();
@@ -105,14 +105,18 @@ function submitTweet() {
 // Checks to see if current user is 'signed in' or not. If they are, it logs
 // them out, if not, it prompts for a username (to 'log them in').
 function signInOut() {
-  if (!currentUser) signIn();
+  if (currentUser === undefined) signIn();
   else signOut();
 }
 
 // Allows user to 'sign in' by prompting them for a username.
 function signIn() {
-  if (!currentUser) {
+  if (currentUser === undefined) {
     currentUser = prompt("What is your username?");
+    if (currentUser === null) {
+      currentUser = undefined;
+      return;
+    }
     streams.users[currentUser] = [];
     $("#userTitle").html('');
     var $userTitle = $('#userTitle');
@@ -125,7 +129,7 @@ function signIn() {
 
 // If the user is logged in, this will log them out by setting currentUser to null.
 function signOut() {
-  currentUser = null;
+  currentUser = undefined;
   $("#signInOut").html('Sign In');
   $("#userTitle").html('Following')
 }

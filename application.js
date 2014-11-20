@@ -11,10 +11,9 @@ $(document).ready(function() {
 });
 
 // Automatically refresh tweets five seconds.
-/*
 window.setInterval(function() {
   refreshTweets();
-}, 5000);*/
+}, 5000);
 
 function loadFollowingList() {
   var $followingList = $('#followingList');
@@ -53,7 +52,7 @@ function showHistory(name) {
   $userTweets.html('');
   var tweetArr = streams.users[name];
 
-  for (var i=0; i<tweetArr.length; i++) {
+  for (var i=tweetArr.length-1; i>0; i--) {
     var tweet = tweetArr[i];
     var $tweet = displayTweet(name, tweet.message, tweet.created_at);
     $tweet.appendTo($userTweets);
@@ -68,7 +67,7 @@ function displayTweet(user, message, time) {
   $username.appendTo($tweet);
   
   var $timestamp = $("<span class='timestamp'></span>");
-  $timestamp.text(' ' + formatDate(time));
+  $timestamp.text(' ' + formatTimestamp(time));
   $timestamp.appendTo($tweet);
 
   var $message = $("<br><span class='message'></span>");
@@ -81,46 +80,7 @@ function showCurrent() {
   $("#userHistory, #goHome").slideUp("slow");
   $("#tweets").slideDown("slow");
   $("#viewTitle").text("What's Twittling Now");
-
   refreshTweets();
-};
-
-function formatDate(dateIn) {
-  var result = "";
-  dateIn += "";
-  var dateArr = dateIn.split(' ');
-  result = monAsNumber(dateArr[1])+"/"+dateArr[2]+"/"+dateArr[3]+" at "+stdTime(dateArr[4]);
-  return result;
-};
-
-function monAsNumber(mon) {
-  var months = {
-    "Jan": 1,
-    "Feb": 2,
-    "Mar": 3,
-    "Apr": 4,
-    "May": 5,
-    "Jun": 6,
-    "Jul": 7,
-    "Aug": 8,
-    "Sep": 9,
-    "Oct": 10,
-    "Nov": 11,
-    "Dec": 12
-  };
-  return months[mon];
-};
-
-function stdTime(time) {
-  var result = "";
-  var ampm = "am";
-  var timeArr = time.split(":");
-  if (timeArr[0] > 11) {
-    ampm = "pm";
-    if (timeArr[0] > 12) timeArr[0] -= 12;
-  }
-  result += timeArr[0]+":"+timeArr[1]+ampm;
-  return result;
 };
 
 function submitTweet() {
@@ -145,4 +105,27 @@ function submitTweet() {
   $("#newTweet").val('');
 };
 
+function formatTimestamp(dateIn) {
+  var now = new Date();
+  var result = "";
 
+  var years = now.getYear() - dateIn.getYear();
+  if (years > 1) return years+" years ago";
+  if (years === 1) return "Last year"
+
+  var months = now.getMonth() - dateIn.getMonth();
+  if (months > 1) return months+" months ago";
+  if (months === 1) return "Last month";
+
+  var days = now.getDate() - dateIn.getDate();
+  if (days > 1) return days+" days ago";
+  if (days === 1) return "Yesterday";
+
+  var hours = now.getHours() - dateIn.getHours();
+  if (hours > 1) return hours+" hours ago";
+  if (hours === 1) return "1 hour ago";
+
+  var minutes = now.getMinutes() - dateIn.getMinutes();
+  if (minutes > 1) return minutes+" minutes ago";
+  return "just now"
+};

@@ -109,7 +109,7 @@ function submitTweet() {
 function signInOut() {
   if (currentUser === undefined) signIn();
   else signOut();
-}
+};
 
 // Allows user to 'sign in' by prompting them for a username.
 function signIn() {
@@ -134,7 +134,7 @@ function signOut() {
   currentUser = undefined;
   $("#signInOut").html('Sign In');
   $("#userTitle").html('Following')
-}
+};
 
 // Formats the timestamp in a more readable format.
 function formatTimestamp(dateIn) {
@@ -143,7 +143,7 @@ function formatTimestamp(dateIn) {
 
   var years = now.getYear() - dateIn.getYear();
   if (years > 1) return years+" years ago";
-  if (years === 1) return "Last year"
+  if (years === 1) return "Last year";
 
   var months = now.getMonth() - dateIn.getMonth();
   if (months > 1) return months+" months ago";
@@ -159,5 +159,5 @@ function formatTimestamp(dateIn) {
 
   var minutes = now.getMinutes() - dateIn.getMinutes();
   if (minutes > 1) return minutes+" minutes ago";
-  return "just now"
+  return "just now";
 };

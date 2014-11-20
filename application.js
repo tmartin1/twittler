@@ -1,9 +1,8 @@
-var currentUser;
+var currentUser = null;
 
 $(document).ready(function() {
-  currentUser = prompt("What is your username?");
-  streams.users[currentUser] = [];
   refreshTweets();
+  loadFollowingList();
 
   $("#newTweet").keypress(function(key) {
     if(key.which === 13) submitTweet();
@@ -16,6 +15,18 @@ $(document).ready(function() {
 window.setInterval(function() {
   refreshTweets();
 }, 5000);*/
+
+function loadFollowingList() {
+  var $followingList = $('#followingList');
+  
+  for (var i=0; i<users.length; i++) {
+    var $following = $("<div class='following'></div>");
+    var $username = $("<a class='username' href='#' onclick=\"showHistory(\'"+users[i]+"\')\"'></a>");
+    $username.text('@' + users[i]);
+    $username.appendTo($following);
+    $following.appendTo($followingList);
+  }
+};
 
 function refreshTweets() {
   var $tweets = $('#tweets');
@@ -113,6 +124,12 @@ function stdTime(time) {
 };
 
 function submitTweet() {
+  if (!currentUser) {
+    currentUser = prompt("What is your username?");
+    streams.users[currentUser] = [];
+    $("#userTitle").html("@"+currentUser);
+  }
+
   var tweet = {
     "user": currentUser,
     "message": $("#newTweet").val(),

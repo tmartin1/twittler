@@ -11,21 +11,31 @@
     
     <div id="goHome" onclick="showCurrent()" style="display:none">See what's twittling now</div>
     
-    <div id="tweetDisplay">
-      <h3 id="viewTitle">What's Twittling Now</h3>
-      <hr>
-      <div id="tweets">
+    <div id="container">
+      <div id="leftbar">
+        <div id="followingList">
+          <h3 id="userTitle">Following</h3>
+          <hr>
+        </div>
+        <button onclick="refreshTweets()">Refresh Tweets</button>
       </div>
-      <div id="userHistory" style="display:none">
-        <div id="userTweets">
+      <div id="rightbar">
+        <div id="tweetDisplay">
+          <h3 id="viewTitle">What's Twittling Now</h3>
+          <hr>
+          <div id="tweets">
+          </div>
+          <div id="userHistory" style="display:none">
+            <div id="userTweets">
+            </div>
+          </div>
+          <div id="tweetSub">
+            <p>What's on your mind?</p>
+            <input id="newTweet" type="text">
+            <button onclick="submitTweet()">Submit</button>
+          </div>
         </div>
       </div>
-      <div id="tweetSub">
-        <p>What's on your mind?</p>
-        <input id="newTweet" type="text">
-        <button onclick="submitTweet()">Submit</button>
-      </div>
     </div>
-    <button onclick="refreshTweets()">Refresh Tweets</button>
   </body>
 </html>

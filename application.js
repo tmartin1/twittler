@@ -1,5 +1,14 @@
+var currentUser;
+
 $(document).ready(function() {
+  currentUser = prompt("What is your username?");
+  streams.users[currentUser] = [];
   refreshTweets();
+
+  $("#newTweet").keypress(function(key) {
+    if(key.which === 13) submitTweet();
+  });
+
 });
 
 // Automatically refresh tweets five seconds.
@@ -36,7 +45,7 @@ function showHistory(name) {
   for (var i=0; i<tweetArr.length; i++) {
     var tweet = tweetArr[i];
     var $tweet = displayTweet(name, tweet.message, tweet.created_at);
-    $tweet.appendTo($userTweets)
+    $tweet.appendTo($userTweets);
   }
 };
 
@@ -102,3 +111,17 @@ function stdTime(time) {
   result += timeArr[0]+":"+timeArr[1]+ampm;
   return result;
 };
+
+function submitTweet() {
+  var tweet = {
+    "user": currentUser,
+    "message": $("#newTweet").val(),
+    "created_at": new Date()
+  };
+  streams.users[currentUser].push(tweet);
+  streams.home.push(tweet);
+  refreshTweets();
+  $("#newTweet").val('');
+};
+
+

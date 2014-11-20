@@ -7,13 +7,18 @@
     <link rel="stylesheet" type="text/css" href="stylesheet.css"></link>
   </head>
   <body>
-    <h1>Twittler</h1>
+    <h1 onclick="showCurrent()">Twittler</h1>
+    
+    <div id="goHome" onclick="showCurrent()" style="display:none">See what's twittling now</div>
+    
     <div id="tweetDisplay">
       <h3 id="viewTitle">What's Twittling Now</h3>
       <hr>
       <div id="tweets">
       </div>
-      <div id="userTweets" style="display:none">
+      <div id="userHistory" style="display:none">
+        <div id="userTweets">
+        </div>
       </div>
     </div>
     <button onclick="refreshTweets()">Refresh Tweets</button>

@@ -17,41 +17,52 @@ function refreshTweets() {
   count = 0;
   while(display >= 0) {
     var tweet = streams.home[index-count];
-    var $tweet = $("<div class='tweet'></div>");
-
-    var user = tweet.user + '';
-    var $username = $("<a class='username' href='#' onclick=\"userHistory(\'"+user+"\')\"'></a>");
-    $username.text('@' + user);
-    $username.appendTo($tweet);
-    
-    var $timestamp = $("<span class='timestamp'></span>");
-    $timestamp.text(' ' + formatDate(tweet.created_at));
-    $timestamp.appendTo($tweet);
-
-    var $message = $("<br><span class='message'></span>");
-    $message.text(' ' + tweet.message);
-    $message.appendTo($tweet);
-
+    var $tweet = displayTweet(tweet.user, tweet.message, tweet.created_at);
     $tweet.appendTo($tweets);
     display--;
     count++;
   }
 };
 
-function userHistory(name) {
-  $("#tweets").hide();
-  $("#userTweets").show();
+function showHistory(name) {
+  $("#tweets").slideUp("slow");
+  $("#userHistory, #goHome").slideDown("slow");
   $("#viewTitle").text("@"+name+" Twittler History");
 
+  var $userTweets = $('#userTweets');
+  var tweetArr = streams.users[name];
 
+  for (var i=0; i<tweetArr.length; i++) {
+    var tweet = tweetArr[i];
+    var $tweet = displayTweet(name, tweet.message, tweet.created_at);
+    $tweet.appendTo($userTweets)
+  }
+};
+
+function displayTweet(user, message, time) {
+  var $tweet = $("<div class='tweet'></div>");
+
+  var $username = $("<a class='username' href='#' onclick=\"showHistory(\'"+user+"\')\"'></a>");
+  $username.text('@' + user);
+  $username.appendTo($tweet);
   
+  var $timestamp = $("<span class='timestamp'></span>");
+  $timestamp.text(' ' + formatDate(time));
+  $timestamp.appendTo($tweet);
+
+  var $message = $("<br><span class='message'></span>");
+  $message.text(' ' + message);
+  $message.appendTo($tweet);
+  return $tweet;
 };
 
 function showCurrent() {
-  $("#userTweets").hide();
-  $("#tweets").show();
+  $("#userHistory, #goHome").slideUp("slow");
+  $("#tweets").slideDown("slow");
   $("#viewTitle").text("What's Twittling Now");
-}
+
+  refreshTweets();
+};
 
 function formatDate(dateIn) {
   var result = "";

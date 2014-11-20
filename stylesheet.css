@@ -7,7 +7,7 @@ body {
 }
 
 h1 {
-	margin: 0px 0px 15px 0px;
+	margin: 0;
 	width: 100%;
 	padding: 5px 10px;
 	background-color: white;
@@ -19,8 +19,21 @@ hr {
 	padding: 0;
 }
 
+#goHome {
+	float: left;
+	margin: 1px 0 0 10px;
+	padding: 10px;
+	width: 100px;
+	background-color: white;
+	border-radius: 0px 0px 5px 5px;
+	box-shadow: 0px 1px 2px gray;
+	cursor: pointer;
+	z-index: -1;
+}
+
 #tweetDisplay {
 	background-color: white;
+	margin-top: 15px;
 	border-radius: 5px 5px 0px 0px;
 	box-shadow: 0px 0px 5px #888888;
 	width: 600px;
@@ -32,7 +45,7 @@ hr {
 	background-color: AliceBlue;
 	text-align: center;
 	padding: 15px 0px;
-	margin: 0 0;
+	margin: 15px 0 0 0;
 }
 
 #tweets {

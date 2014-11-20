@@ -18,7 +18,7 @@ window.setInterval(function() {
 
 function loadFollowingList() {
   var $followingList = $('#followingList');
-  
+
   for (var i=0; i<users.length; i++) {
     var $following = $("<div class='following'></div>");
     var $username = $("<a class='username' href='#' onclick=\"showHistory(\'"+users[i]+"\')\"'></a>");
@@ -127,7 +127,11 @@ function submitTweet() {
   if (!currentUser) {
     currentUser = prompt("What is your username?");
     streams.users[currentUser] = [];
-    $("#userTitle").html("@"+currentUser);
+    $("#userTitle").html('');
+    var $userTitle = $('#userTitle');
+    var $nameTitle = $("<a class='username' href='#' onclick=\"showHistory(\'"+currentUser+"\')\"'></a>");
+    $nameTitle.text("@"+currentUser);
+    $nameTitle.appendTo($userTitle);
   }
 
   var tweet = {

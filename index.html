@@ -9,7 +9,7 @@
   <body>
     <h1 onclick="showCurrent()">Twittler</h1>
     
-    <div id="goHome" onclick="showCurrent()" style="display:none">See what's twittling now</div>
+    
     
     <div id="container">
       <div id="leftbar">
@@ -17,7 +17,8 @@
           <h3 id="userTitle">Following</h3>
           <hr>
         </div>
-        <button onclick="refreshTweets()">Refresh Tweets</button>
+        <div id="goHome" onclick="showCurrent()" style="display:none">See what's twittling now</div>
+        
       </div>
       <div id="rightbar">
         <div id="tweetDisplay">
@@ -35,6 +36,7 @@
             <button onclick="submitTweet()">Submit</button>
           </div>
         </div>
+        <button onclick="refreshTweets()">Refresh Tweets</button>
       </div>
     </div>
   </body>

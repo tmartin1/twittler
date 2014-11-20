@@ -30,6 +30,7 @@ function showHistory(name) {
   $("#viewTitle").text("@"+name+" Twittler History");
 
   var $userTweets = $('#userTweets');
+  $userTweets.html('');
   var tweetArr = streams.users[name];
 
   for (var i=0; i<tweetArr.length; i++) {

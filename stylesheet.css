@@ -126,3 +126,9 @@ hr {
 	font-weight: bold;
 	padding: 10px 0px;
 }
+
+#logInOut {
+	font-size: 90%;
+	float: right;
+	padding: 5px;
+}

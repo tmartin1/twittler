@@ -84,16 +84,7 @@ function showCurrent() {
 };
 
 function submitTweet() {
-  if (!currentUser) {
-    currentUser = prompt("What is your username?");
-    streams.users[currentUser] = [];
-    $("#userTitle").html('');
-    var $userTitle = $('#userTitle');
-    var $nameTitle = $("<a class='username' href='#' onclick=\"showHistory(\'"+currentUser+"\')\"'></a>");
-    $nameTitle.text("@"+currentUser);
-    $nameTitle.appendTo($userTitle);
-  }
-
+  signIn();
   var tweet = {
     "user": currentUser,
     "message": $("#newTweet").val(),
@@ -104,6 +95,30 @@ function submitTweet() {
   refreshTweets();
   $("#newTweet").val('');
 };
+
+function signInOut() {
+  if (!currentUser) signIn();
+  else signOut();
+}
+
+function signIn() {
+  if (!currentUser) {
+    currentUser = prompt("What is your username?");
+    streams.users[currentUser] = [];
+    $("#userTitle").html('');
+    var $userTitle = $('#userTitle');
+    var $nameTitle = $("<a class='username' href='#' onclick=\"showHistory(\'"+currentUser+"\')\"'></a>");
+    $nameTitle.text("@"+currentUser);
+    $nameTitle.appendTo($userTitle);
+    $("#signInOut").html('Log Out');
+  }
+};
+
+function signOut() {
+  currentUser = null;
+  $("#signInOut").html('Sign In');
+  $("#userTitle").html('Following')
+}
 
 function formatTimestamp(dateIn) {
   var now = new Date();
